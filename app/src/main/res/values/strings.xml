@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Fone Company</string>
+    <string name="document_hint">CPF/CNPJ</string>
+    <string name="password_hint">Digite sua senha</string>
+    <string name="login">Entrar</string>
+    <string name="forgot_password">Esqueceu a\nsenha?</string>
 </resources>

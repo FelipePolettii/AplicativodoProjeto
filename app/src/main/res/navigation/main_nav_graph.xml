@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.fonecompany.LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action android:id="@+id/toOnBoardingFragment"
+            app:destination="@id/onBoardingFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.example.fonecompany.OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding" />
+
+</navigation>
