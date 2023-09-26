@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Fone Company</string>
-    <string name="document_hint">CPF/CNPJ</string>
-    <string name="password_hint">Digite sua senha</string>
+    <string name="document_hint">Email</string>
+    <string name="password_hint">Digite a senha</string>
     <string name="login">Entrar</string>
     <string name="forgot_password">Esqueceu a\nsenha?</string>
+
+    <!--onbording fragment-->
+    <string name="onbording_title">Inicio</string>
+    <string name="onbording_username">Nome: %s</string>
+    <string name="onbording_userRA">RA: %s</string>
 </resources>

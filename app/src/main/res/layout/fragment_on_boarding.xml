@@ -1,15 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ONBOARDING"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/mt"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/onbording_title"
+        app:titleCentered="true" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/siv"
+        android:layout_width="157dp"
+        android:layout_height="144dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mt"
+        app:srcCompat="@drawable/ic_profile" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/siv"
+        tools:text="Nome: Felipe Reno Valle Poletti" />
+
+    <TextView
+        android:id="@+id/tvRa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        tools:text="Ra: N9025J8" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRa">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPaymentPaper"
+            android:layout_width="190dp"
+            android:layout_height="91dp"
+            android:layout_marginEnd="4dp"
+            android:drawableEnd="@drawable/ic_money"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingHorizontal="21dp"
+            android:paddingVertical="24dp"
+            android:text="Folha de\nPagamento"
+            app:cornerRadius="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEmployees"
+            android:layout_width="190dp"
+            android:layout_height="91dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="4dp"
+            android:drawableEnd="@drawable/ic_person"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingHorizontal="21dp"
+            android:paddingVertical="24dp"
+            android:text="Funcionários"
+            app:cornerRadius="10dp" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.fonecompany
+package com.example.fonecompany.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.fonecompany.R
 import com.example.fonecompany.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {

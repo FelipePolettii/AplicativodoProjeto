@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.fonecompany.LoginFragment"
+        android:name="com.example.fonecompany.fragments.LoginFragment"
         tools:layout="@layout/fragment_login">
         <action android:id="@+id/toOnBoardingFragment"
             app:destination="@id/onBoardingFragment"
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.example.fonecompany.OnBoardingFragment"
+        android:name="com.example.fonecompany.fragments.OnBoardingFragment"
         tools:layout="@layout/fragment_on_boarding" />
 
 </navigation>
