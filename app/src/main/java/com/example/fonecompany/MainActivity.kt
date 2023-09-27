@@ -30,6 +30,6 @@ class MainActivity : FragmentActivity() {
     }
 
     companion object {
-        private val fragmentsWithoutBottomNavigationView = arrayListOf(R.id.loginFragment)
+        private val fragmentsWithoutBottomNavigationView = arrayListOf(R.id.loginFragment, R.id.employerFragment)
     }
 }

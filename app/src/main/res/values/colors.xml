@@ -11,4 +11,5 @@
     <color name="orange">#FFA500</color>
     <color name="blue_darkess">#393F53</color>
     <color name="blue_selected">#5C97F0</color>
+    <color name="blue_light">#B1B3C6</color>
 </resources>

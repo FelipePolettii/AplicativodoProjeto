@@ -3,6 +3,7 @@
     <style name="Widget.FoneCompany.Toobar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="materialThemeOverlay">@style/ThemeOverlay.FoneCompany.WhiteTitleToobar</item>
         <item name="titleTextColor">@color/white</item>
+        <item name="titleCentered">true</item>
     </style>
 
 </resources>

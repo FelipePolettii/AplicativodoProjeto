@@ -4,9 +4,28 @@
     <string name="password_hint">Digite a senha</string>
     <string name="login">Entrar</string>
     <string name="forgot_password">Esqueceu a\nsenha?</string>
-
+    <!--bottom navigation menu-->
+    <string name="bottom_navigation_menu_home">Inicio</string>
+    <string name="bottom_navigation_menu_report">Relatório</string>
+    <string name="bottom_navigation_menu_config">Configurações</string>
+    <string name="bottom_navigation_menu_logout">Logout</string>
     <!--onbording fragment-->
     <string name="onbording_title">Inicio</string>
     <string name="onbording_username">Nome: %s</string>
     <string name="onbording_userRA">RA: %s</string>
+    <!--employer fragment-->
+    <string name="employer_fragment_title">Funcionários</string>
+    <!--report fragment-->
+    <string name="report_fragment_title">Folha de Pagamento</string>
+    <string name="report_fragment_username">Nome: %s</string>
+    <string name="report_fragment_userRA">RA: %s</string>
+    <string-array name="months">
+        <item>Jan</item>
+        <item>Fev</item>
+        <item>Mar</item>
+        <item>Abr</item>
+        <item>Mai</item>
+        <item>Jun</item>
+    </string-array>
+
 </resources>

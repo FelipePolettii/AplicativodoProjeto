@@ -9,15 +9,33 @@
         android:id="@+id/loginFragment"
         android:name="com.example.fonecompany.fragments.LoginFragment"
         tools:layout="@layout/fragment_login">
-        <action android:id="@+id/toOnBoardingFragment"
+        <action
+            android:id="@+id/toOnBoardingFragment"
             app:destination="@id/onBoardingFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/loginFragment"/>
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.example.fonecompany.fragments.OnBoardingFragment"
-        tools:layout="@layout/fragment_on_boarding" />
+        tools:layout="@layout/fragment_on_boarding">
+        <action
+            android:id="@+id/toEmployerFragment"
+            app:destination="@id/employerFragment" />
+        <action
+            android:id="@+id/toReportFragment"
+            app:destination="@id/reportFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/employerFragment"
+        android:name="com.example.fonecompany.fragments.EmployerFragment"
+        tools:layout="@layout/fragment_employer" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.fonecompany.fragments.ReportFragment"
+        tools:layout="@layout/fragment_report"/>
+
+
 
 </navigation>
