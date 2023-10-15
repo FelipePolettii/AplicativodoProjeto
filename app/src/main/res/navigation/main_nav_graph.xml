@@ -25,7 +25,7 @@
             app:destination="@id/employerFragment" />
         <action
             android:id="@+id/toReportFragment"
-            app:destination="@id/reportFragment"/>
+            app:destination="@id/reportFragment" />
     </fragment>
     <fragment
         android:id="@+id/employerFragment"
@@ -34,8 +34,15 @@
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.fonecompany.fragments.ReportFragment"
-        tools:layout="@layout/fragment_report"/>
-
+        tools:layout="@layout/fragment_report">
+        <action
+            android:id="@+id/toReportDetailsFragment"
+            app:destination="@id/reportDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportDetailsFragment"
+        android:name="com.example.fonecompany.fragments.ReportDetailsFragment"
+        tools:layout="@layout/fragment_report_detail" />
 
 
 </navigation>

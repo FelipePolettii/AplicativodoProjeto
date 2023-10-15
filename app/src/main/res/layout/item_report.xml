@@ -8,6 +8,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="198dp"
+        android:id="@+id/btn"
         android:layout_height="78dp"
         android:drawableEnd="@drawable/ic_money"
         app:cornerRadius="10dp"

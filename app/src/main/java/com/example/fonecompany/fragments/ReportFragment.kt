@@ -1,25 +1,31 @@
 package com.example.fonecompany.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.fonecompany.R
-import com.example.fonecompany.databinding.FragmentOnBoardingBinding
+import com.example.fonecompany.adapter.ReportAdapter
 import com.example.fonecompany.databinding.FragmentReportBinding
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.example.fonecompany.model.ReportList
+import com.example.fonecompany.model.ReportResDTO
 import java.util.Calendar
+import java.util.Date
 
 class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
+    private val reportResDTO = ReportResDTO(listOf(ReportList(date = Date())))
     private var _binding: FragmentReportBinding? = null
     private val binding get() = _binding!!
+    private val reportAdapter: ReportAdapter by lazy {
+        ReportAdapter(onItemClick = {
+            handleReportClick(it)
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +54,8 @@ class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
         adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerYear.adapter = adapterYear
+        binding.rv.adapter = reportAdapter
+        reportAdapter.submitList(reportResDTO.list)
     }
 
     private fun buildYears(): List<Int> {
@@ -76,5 +84,9 @@ class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
+    }
+
+    private fun handleReportClick(item: ReportList) {
+        findNavController().navigate(R.id.toReportDetailsFragment)
     }
 }

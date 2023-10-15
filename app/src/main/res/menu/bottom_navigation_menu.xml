@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_home"
         android:title="@string/bottom_navigation_menu_home" />
     <item
-        android:id="@+id/relatiorio"
+        android:id="@+id/reportFragment"
         android:icon="@drawable/ic_money"
         android:title="@string/bottom_navigation_menu_report" />
     <item

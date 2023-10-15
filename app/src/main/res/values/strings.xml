@@ -27,5 +27,14 @@
         <item>Mai</item>
         <item>Jun</item>
     </string-array>
+    <!--report fragment detail-->
+    <string name="report_fragment_detail_title">Relatório</string>
+    <string name="report_fragment_detail_name_label">Nome do Funcionario: %1$s (%2$s) </string>
+    <string name="report_fragment_detail_salary_label">Salario: R$%f</string>
+    <string name="report_fragment_detail_inss_label">INSS: %s</string>
+    <string name="report_fragment_detail_irpf_label">IRPF: %s</string>
+    <string name="report_fragment_detail_transportation_value_label">Vale Transporte: R$%f</string>
+    <string name="report_fragment_detail_deduction_label">Deduções: R$%f</string>
+    <string name="report_fragment_detail_salary_liquid_label">Salario Liquido: R$%f</string>
 
 </resources>
