@@ -37,4 +37,6 @@
     <string name="report_fragment_detail_deduction_label">Deduções: R$%f</string>
     <string name="report_fragment_detail_salary_liquid_label">Salario Liquido: R$%f</string>
 
+    <string name="report_fragment_detail_download_button_label">Download Do Relatório</string>
+    <string name="report_fragment_detail_see_others_employers">Ver outros Funcionários</string>
 </resources>

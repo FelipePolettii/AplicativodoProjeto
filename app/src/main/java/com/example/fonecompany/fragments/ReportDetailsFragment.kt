@@ -10,11 +10,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.fonecompany.R
 import com.example.fonecompany.databinding.FragmentReportDetailBinding
+import com.example.fonecompany.fragments.viewModel.ReportDetailsViewModel
 import com.example.fonecompany.model.ReportDetailDTO
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class ReportDetailsFragment : Fragment() {
+    private val viewModel: ReportDetailsViewModel by viewModels()
     private val reportDetailDTO = ReportDetailDTO(
         name = "Felipe Renó Valle Poletti",
         salary = 5000.0,
@@ -37,6 +45,7 @@ class ReportDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observers()
         binding.apply {
             tvName.apply {
                 text = getString(
@@ -61,14 +70,13 @@ class ReportDetailsFragment : Fragment() {
             }
             tvDeductions.apply {
                 text = getString(
-                    R.string.report_fragment_detail_deduction_label,
-                    reportDetailDTO.deductions
+                    R.string.report_fragment_detail_deduction_label, reportDetailDTO.deductions
                 )
                 colorText()
             }
             tvSalaryLiquid.apply {
                 text = getString(
-                    R.string.report_fragment_detail_salary_label,
+                    R.string.report_fragment_detail_salary_liquid_label,
                     reportDetailDTO.salaryLiquid
                 )
                 colorText()
@@ -79,6 +87,30 @@ class ReportDetailsFragment : Fragment() {
                     reportDetailDTO.transportationValue
                 )
                 colorText()
+            }
+            btnDownload.setOnClickListener{
+                viewModel.downloadPDF()
+            }
+        }
+    }
+
+    private fun observers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                launch {
+                    viewModel.pdfResponse.collect {
+                        it?.let { response ->
+                            println(response.string())
+                        }
+                    }
+                }
+                launch {
+                    viewModel.error.collect {
+                        it?.let { error ->
+                            throw error
+                        }
+                    }
+                }
             }
         }
     }
@@ -95,5 +127,4 @@ class ReportDetailsFragment : Fragment() {
             )
         }
     }
-
 }
