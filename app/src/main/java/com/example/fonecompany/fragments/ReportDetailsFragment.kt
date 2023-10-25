@@ -29,9 +29,7 @@ class ReportDetailsFragment : Fragment() {
     val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReportDetailBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,39 +38,59 @@ class ReportDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            tvName.text = getString(
-                R.string.report_fragment_detail_name_label,
-                reportDetailDTO.name,
-                reportDetailDTO.office
-            )
-            tvINSS.text =
-                getString(R.string.report_fragment_detail_inss_label, reportDetailDTO.inss)
-            tvIRPF.text =
-                getString(R.string.report_fragment_detail_irpf_label, reportDetailDTO.irpf)
-            tvWage.text =
-                getString(R.string.report_fragment_detail_salary_label, reportDetailDTO.salary)
-            tvDeductions.text = getString(
-                R.string.report_fragment_detail_deduction_label,
-                reportDetailDTO.deductions
-            )
-            tvSalaryLiquid.text = getString(
-                R.string.report_fragment_detail_salary_label,
-                reportDetailDTO.salaryLiquid
-            )
-            tvTransportationValue.text = getString(
-                R.string.report_fragment_detail_transportation_value_label,
-                reportDetailDTO.transportationValue
-            )
+            tvName.apply {
+                text = getString(
+                    R.string.report_fragment_detail_name_label,
+                    reportDetailDTO.name,
+                    reportDetailDTO.office
+                )
+                colorText()
+            }
+            tvINSS.apply {
+                text = getString(R.string.report_fragment_detail_inss_label, reportDetailDTO.inss)
+                colorText()
+            }
+            tvIRPF.apply {
+                text = getString(R.string.report_fragment_detail_irpf_label, reportDetailDTO.irpf)
+                colorText()
+            }
+            tvWage.apply {
+                text =
+                    getString(R.string.report_fragment_detail_salary_label, reportDetailDTO.salary)
+                colorText()
+            }
+            tvDeductions.apply {
+                text = getString(
+                    R.string.report_fragment_detail_deduction_label,
+                    reportDetailDTO.deductions
+                )
+                colorText()
+            }
+            tvSalaryLiquid.apply {
+                text = getString(
+                    R.string.report_fragment_detail_salary_label,
+                    reportDetailDTO.salaryLiquid
+                )
+                colorText()
+            }
+            tvTransportationValue.apply {
+                text = getString(
+                    R.string.report_fragment_detail_transportation_value_label,
+                    reportDetailDTO.transportationValue
+                )
+                colorText()
+            }
         }
     }
-    fun TextView.colorText(
-    ): SpannableStringBuilder {
-        val transformText = "${text.toString()} ${text.split(':').first()}"
-        return SpannableStringBuilder(transformText).apply {
+
+    private fun TextView.colorText(
+    ) {
+        val transformText = this.text.split(':').first()
+        this.text = SpannableStringBuilder(this.text).apply {
             setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.white)),
-                transformText.indexOf(coloredText),
-                (transformText.indexOf(coloredText) + coloredText.length),
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.white)),
+                0,
+                transformText.length + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
