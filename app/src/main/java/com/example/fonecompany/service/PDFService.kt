@@ -4,6 +4,6 @@ import okhttp3.ResponseBody
 import retrofit2.http.GET
 
 interface PDFService {
-    @GET("pdf-test.pdf")
+    @GET("fotos_institucional_downloads/2.pdf")
     suspend fun downloadPDF(): ResponseBody
 }

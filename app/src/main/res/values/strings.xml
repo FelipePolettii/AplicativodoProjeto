@@ -4,6 +4,8 @@
     <string name="password_hint">Digite a senha</string>
     <string name="login">Entrar</string>
     <string name="forgot_password">Esqueceu a\nsenha?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
     <!--bottom navigation menu-->
     <string name="bottom_navigation_menu_home">Inicio</string>
     <string name="bottom_navigation_menu_report">Relatório</string>
@@ -39,4 +41,5 @@
 
     <string name="report_fragment_detail_download_button_label">Download Do Relatório</string>
     <string name="report_fragment_detail_see_others_employers">Ver outros Funcionários</string>
+    <string name="report_fragment_detail_dialog_download_title">Fazer Download?</string>
 </resources>

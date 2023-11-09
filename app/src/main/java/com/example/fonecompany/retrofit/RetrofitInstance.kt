@@ -13,7 +13,7 @@ object RetrofitInstance {
     private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
     private val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
     val retrofit =
-        Retrofit.Builder().baseUrl("https://www.orimi.com/").client(client).addConverterFactory(
+        Retrofit.Builder().baseUrl("https://www.caceres.mt.gov.br/").client(client).addConverterFactory(
             MoshiConverterFactory.create(
                 moshi
             )

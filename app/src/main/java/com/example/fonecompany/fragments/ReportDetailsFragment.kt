@@ -1,5 +1,6 @@
 package com.example.fonecompany.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -18,6 +19,8 @@ import com.example.fonecompany.R
 import com.example.fonecompany.databinding.FragmentReportDetailBinding
 import com.example.fonecompany.fragments.viewModel.ReportDetailsViewModel
 import com.example.fonecompany.model.ReportDetailDTO
+import com.example.fonecompany.utils.FileUtil
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -89,7 +92,7 @@ class ReportDetailsFragment : Fragment() {
                 colorText()
             }
             btnDownload.setOnClickListener{
-                viewModel.downloadPDF()
+                showDialogDownload()
             }
         }
     }
@@ -100,7 +103,13 @@ class ReportDetailsFragment : Fragment() {
                 launch {
                     viewModel.pdfResponse.collect {
                         it?.let { response ->
-                            println(response.string())
+                            val uri = FileUtil.saveFile(requireContext(),response.byteStream(),"Folha de Pagamento.pdf")
+                            Intent(Intent.ACTION_VIEW).apply {
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                setDataAndType(uri,"application/pdf")
+                                requireContext().startActivity(Intent.createChooser(this,"selecione um app"))
+                            }
                         }
                     }
                 }
@@ -126,5 +135,17 @@ class ReportDetailsFragment : Fragment() {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
+    }
+    fun showDialogDownload(){
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(R.string.report_fragment_detail_dialog_download_title)
+            setPositiveButton(R.string.yes){_,_->
+                viewModel.downloadPDF()
+            }
+            setNegativeButton(R.string.no){_,_->
+
+            }
+
+        }.show()
     }
 }
