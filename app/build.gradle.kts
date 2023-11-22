@@ -67,4 +67,14 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
+
+    // Lifecycle Components
+    val lifecycle_version = "2.5.1"
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+
+    // Data Store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
