@@ -35,6 +35,9 @@
         android:id="@+id/reportFragment"
         android:name="com.example.fonecompany.fragments.ReportFragment"
         tools:layout="@layout/fragment_report">
+        <argument
+            android:name="userId"
+            app:argType="string"/>
         <action
             android:id="@+id/toReportDetailsFragment"
             app:destination="@id/reportDetailsFragment" />

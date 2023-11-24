@@ -14,7 +14,7 @@
     <!--onbording fragment-->
     <string name="onbording_title">Inicio</string>
     <string name="onbording_username">Nome: %s</string>
-    <string name="onbording_userRA">RA: %s</string>
+    <string name="onbording_userRA">CPF: %s</string>
     <!--employer fragment-->
     <string name="employer_fragment_title">Funcionários</string>
     <!--report fragment-->
@@ -28,6 +28,12 @@
         <item>Abr</item>
         <item>Mai</item>
         <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Set</item>
+        <item>Out</item>
+        <item>Nov</item>
+        <item>Dez</item>
     </string-array>
     <!--report fragment detail-->
     <string name="report_fragment_detail_title">Relatório</string>

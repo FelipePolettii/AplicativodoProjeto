@@ -1,6 +1,15 @@
 package com.example.fonecompany.model
 
-import java.util.Date
+import com.squareup.moshi.Json
 
-data class ReportResDTO (val list: List<ReportList>)
-data class ReportList (val date: Date)
+data class ReportResDTO(
+    @Json(name = "id") val id: String,
+    @Json(name = "creationDate") val creationDate: Long,
+    @Json(name = "salary") val salary: String,
+    @Json(name = "inss") val inss: String,
+    @Json(name = "irpf") val irpf: String,
+    @Json(name = "transportationValue") val transportationValue: String,
+    @Json(name = "deductions") val deductions: String,
+    @Json(name = "salaryLiquid") val salaryLiquid: String,
+    @Json(name = "userId") val userId: String
+)

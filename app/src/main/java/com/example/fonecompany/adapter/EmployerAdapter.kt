@@ -8,7 +8,7 @@ import com.example.fonecompany.databinding.ItemEmployerBinding
 import com.example.fonecompany.model.EmployerDTO
 import com.example.fonecompany.utils.ItemCallBack
 
-class EmployerAdapter : ListAdapter<EmployerDTO, EmployerAdapter.BaseViewHolder>(ItemCallBack()) {
+class EmployerAdapter(private val onClick:(EmployerDTO)->Unit) : ListAdapter<EmployerDTO, EmployerAdapter.BaseViewHolder>(ItemCallBack()) {
     abstract class BaseViewHolder(val binding: ItemEmployerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         abstract fun bind(item: EmployerDTO)
@@ -17,8 +17,11 @@ class EmployerAdapter : ListAdapter<EmployerDTO, EmployerAdapter.BaseViewHolder>
     inner class EmployerViewHolder(binding: ItemEmployerBinding) : BaseViewHolder(binding) {
         override fun bind(item: EmployerDTO) {
             binding.apply {
+                main.setOnClickListener{
+                    onClick.invoke(item)
+                }
                 tvName.text = item.name
-                tvRa.text = item.ra
+                tvRa.text = item.cpf
                 tvEmail.text = item.email
                 tvOffice.text = item.office
             }

@@ -20,6 +20,6 @@ class TokenRepositoryImpl : TokenRepositoy {
 
     override suspend fun refreshToken(refreshTokenDTO: RefreshTokenDTO): Flow<RefreshTokenResDTO> =
         flow<RefreshTokenResDTO> {
-            retrofit.refreshtoken(refreshTokenDTO)
+            emit(retrofit.refreshtoken(refreshTokenDTO))
         }.flowOn(Dispatchers.IO)
 }

@@ -5,6 +5,7 @@ import com.example.fonecompany.model.RefreshTokenDTO
 import com.example.fonecompany.repository.token.TokenDataStore
 import com.example.fonecompany.repository.token.TokenRepositoryImpl
 import com.example.fonecompany.repository.token.TokenRepositoy
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -25,8 +26,7 @@ class SessionAuthenticator : Authenticator {
                 val refreshToken =
                     tokenDataStore.getrefreshtoken(AppApplication.instance).firstOrNull() ?: ""
                 val responsetoken =
-                    tokenRepository.refreshToken(RefreshTokenDTO(refreshToken)).firstOrNull()
-                        ?: throw IOException()
+                    tokenRepository.refreshToken(RefreshTokenDTO(refreshToken)).firstOrNull()?:throw IOException()
                 tokenDataStore.savenewtoken(AppApplication.instance, responsetoken)
                 tokenDataStore.getrefreshtoken(AppApplication.instance).firstOrNull()
             }

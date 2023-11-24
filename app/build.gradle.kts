@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-parcelize")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -49,7 +51,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //NAVIGATION
-    val nav_version = "2.5.3"
+    val nav_version = "2.7.5"
 
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
@@ -77,4 +79,7 @@ dependencies {
 
     // Data Store
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+
+
 }

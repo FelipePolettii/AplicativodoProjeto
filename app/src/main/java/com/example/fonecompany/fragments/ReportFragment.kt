@@ -8,19 +8,22 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.fonecompany.R
 import com.example.fonecompany.adapter.ReportAdapter
 import com.example.fonecompany.databinding.FragmentReportBinding
-import com.example.fonecompany.model.ReportList
+import com.example.fonecompany.fragments.viewModel.ReportViewModel
 import com.example.fonecompany.model.ReportResDTO
 import java.util.Calendar
-import java.util.Date
 
 class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    private val reportResDTO = ReportResDTO(listOf(ReportList(date = Date())))
     private var _binding: FragmentReportBinding? = null
     private val binding get() = _binding!!
+    private val args: ReportFragmentArgs by navArgs()
+    private val viewModel: ReportViewModel by viewModels()
+    private val loading: DialogProgress by lazy { DialogProgress() }
     private val reportAdapter: ReportAdapter by lazy {
         ReportAdapter(onItemClick = {
             handleReportClick(it)
@@ -28,9 +31,7 @@ class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReportBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,13 +40,11 @@ class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.months,
-            android.R.layout.simple_spinner_item
+            requireContext(), R.array.months, android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerMonth.adapter = adapter
-        binding.spinnerMonth.onItemSelectedListener = this
+
 
         val adapterYear = ArrayAdapter(
             requireContext(),
@@ -53,9 +52,28 @@ class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
             buildYears(),
         )
         adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        handlerMonthSelected()
         binding.spinnerYear.adapter = adapterYear
         binding.rv.adapter = reportAdapter
-        reportAdapter.submitList(reportResDTO.list)
+
+        initobservers()
+        binding.spinnerMonth.onItemSelectedListener = this
+    }
+
+    private fun initobservers() {
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it)loading.showLoading(parentFragmentManager)else  loading.hideLoading()
+        }
+            viewModel.error.observe(viewLifecycleOwner){
+                it?.let {
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
+        viewModel.reportresponse.observe(viewLifecycleOwner){
+            it?.let{
+                reportAdapter.submitList(it)
+            }
+        }
     }
 
     private fun buildYears(): List<Int> {
@@ -75,18 +93,35 @@ class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        Toast.makeText(
-            requireContext(),
-            resources.getStringArray(R.array.months).get(position),
-            Toast.LENGTH_SHORT
-        ).show()
+        viewModel.monthSelected  = position
+        viewModel.loadreport(args.userId)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-
+        parent?.setSelection(viewModel.monthSelected)
     }
 
-    private fun handleReportClick(item: ReportList) {
+    private fun handleReportClick(item: ReportResDTO) {
         findNavController().navigate(R.id.toReportDetailsFragment)
+    }
+
+    private fun handlerMonthSelected(){
+        binding.spinnerYear.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.yearSelected = buildYears()[position]
+                viewModel.loadreport(args.userId)
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                parent?.setSelection(viewModel.yearSelected)
+            }
+
+        }
     }
 }
