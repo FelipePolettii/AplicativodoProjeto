@@ -36,7 +36,7 @@ class OnBoardingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvName.text = getString(R.string.onbording_username, "Felipe Renó Valle Poletti")
         binding.tvRa.text = getString(R.string.onbording_userRA, "N9025J8")
-        binding.btnEmployees.isActivated =
+        binding.btnEmployees.isEnabled =
             runBlocking { tokenDataStore.getisadmin(requireContext()).firstOrNull() ?: false }
         userClickListener()
         initObservers()

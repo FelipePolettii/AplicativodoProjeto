@@ -16,7 +16,7 @@ class ReportViewModel : BaseViewModel() {
     var yearSelected: Int = Calendar.getInstance().get(Calendar.YEAR)
     private val _reportresponse = MutableStateFlow<List<ReportResDTO>?>(null)
     val reportresponse = _reportresponse.asLiveData()
-    fun loadreport(userId: String) {
+    fun loadreport(userId: String?) {
         viewModelScope.launch {
             val date = Calendar.getInstance().apply {
                 set(Calendar.YEAR,yearSelected)

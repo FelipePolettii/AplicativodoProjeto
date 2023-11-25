@@ -12,7 +12,7 @@ import okhttp3.ResponseBody
 
 class ReportRepository {
     private val service: ReportService by lazy { RetrofitInstance.retrofit.create(ReportService::class.java) }
-    suspend fun findreport(userId: String, date: Long): Flow<List<ReportResDTO>> = flow {
+    suspend fun findreport(userId: String?, date: Long): Flow<List<ReportResDTO>> = flow {
         emit(service.findreports(userId, date))
     }.flowOn(Dispatchers.IO)
     suspend fun findreportbyid(reportId: String): Flow<ReportDetailResDTO> = flow {

@@ -3,19 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/loginFragment">
-
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.fonecompany.fragments.LoginFragment"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/toOnBoardingFragment"
-            app:destination="@id/onBoardingFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-
+    app:startDestination="@id/onBoardingFragment">
+    <action
+        android:id="@+id/toLogout"
+        app:destination="@id/logoutDialog"/>
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.example.fonecompany.fragments.OnBoardingFragment"
@@ -36,8 +27,10 @@
         android:name="com.example.fonecompany.fragments.ReportFragment"
         tools:layout="@layout/fragment_report">
         <argument
+            app:nullable="true"
+            android:defaultValue=""
             android:name="userId"
-            app:argType="string"/>
+            app:argType="string" />
         <action
             android:id="@+id/toReportDetailsFragment"
             app:destination="@id/reportDetailsFragment" />
@@ -47,10 +40,19 @@
         android:name="com.example.fonecompany.fragments.ReportDetailsFragment"
         tools:layout="@layout/fragment_report_detail">
         <argument
-            app:argType="string"
-            android:name="reportId"/>
-
+            android:name="reportId"
+            app:argType="string" />
     </fragment>
-
+    <fragment
+        android:id="@+id/logoutDialog"
+        android:name="com.example.fonecompany.fragments.DialogLogout"
+        tools:layout="@layout/dialog_logout"
+        android:label="logoutDialog">
+        <action android:id="@+id/toLoginNavGraph"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/login_nav_graph"
+            app:destination="@id/login_nav_graph"
+            app:launchSingleTop="true"/>
+    </fragment>
 
 </navigation>

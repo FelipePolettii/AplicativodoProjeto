@@ -1,6 +1,7 @@
 package com.example.fonecompany
 
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
@@ -25,6 +26,7 @@ class MainActivity : FragmentActivity() {
         navController = navHostFragment.navController
         binding.bnv.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            Log.e("Destination",destination.displayName)
             binding.bnv.isVisible = !fragmentsWithoutBottomNavigationView.contains(destination.id)
         }
     }

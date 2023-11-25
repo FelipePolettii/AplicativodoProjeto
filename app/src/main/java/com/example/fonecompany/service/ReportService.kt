@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface ReportService {
     @GET("report/findreports")
     suspend fun findreports(
-        @Query("userId") userId: String, @Query("date") date: Long
+        @Query("userId") userId: String?, @Query("date") date: Long
     ): List<ReportResDTO>
 
     @GET("report/findreportbyid")

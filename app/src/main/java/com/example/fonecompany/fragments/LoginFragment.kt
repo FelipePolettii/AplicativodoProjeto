@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.fonecompany.MainNavGraphDirections
 import com.example.fonecompany.R
 import com.example.fonecompany.databinding.FragmentLoginBinding
 import com.example.fonecompany.fragments.viewModel.LoginViewModel
@@ -59,11 +60,11 @@ class LoginFragment : Fragment() {
         viewModel.loginRes.observe(viewLifecycleOwner) {
             it?.let {
                 runBlocking { tokenDataStore.savetoken(requireContext(), it) }
-                findNavController().navigate(R.id.toOnBoardingFragment)
+                findNavController().navigate(R.id.main_nav_graph)
             }
         }
         viewModel.skipLogin.observe(viewLifecycleOwner){
-            if (it) findNavController().navigate(R.id.toOnBoardingFragment)
+            if (it) findNavController().navigate(R.id.main_nav_graph)
         }
     }
 

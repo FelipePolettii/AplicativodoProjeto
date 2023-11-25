@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //NAVIGATION
-    val nav_version = "2.7.5"
+    val nav_version = "2.5.3"
 
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")

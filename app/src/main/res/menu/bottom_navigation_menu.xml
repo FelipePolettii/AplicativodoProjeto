@@ -9,11 +9,7 @@
         android:icon="@drawable/ic_money"
         android:title="@string/bottom_navigation_menu_report" />
     <item
-        android:id="@+id/menu3"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/bottom_navigation_menu_config" />
-    <item
-        android:id="@+id/menu4"
+        android:id="@+id/logoutDialog"
         android:icon="@drawable/ic_logout"
         android:title="@string/bottom_navigation_menu_logout" />
 </menu>
