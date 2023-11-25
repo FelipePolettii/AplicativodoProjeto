@@ -15,6 +15,7 @@ import com.example.fonecompany.R
 import com.example.fonecompany.adapter.ReportAdapter
 import com.example.fonecompany.databinding.FragmentReportBinding
 import com.example.fonecompany.fragments.viewModel.ReportViewModel
+import com.example.fonecompany.model.ReportDetailResDTO
 import com.example.fonecompany.model.ReportResDTO
 import java.util.Calendar
 
@@ -102,7 +103,7 @@ class ReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun handleReportClick(item: ReportResDTO) {
-        findNavController().navigate(R.id.toReportDetailsFragment)
+        findNavController().navigate(ReportFragmentDirections.toReportDetailsFragment(item.id))
     }
 
     private fun handlerMonthSelected(){

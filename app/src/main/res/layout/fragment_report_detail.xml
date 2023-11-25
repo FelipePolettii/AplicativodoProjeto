@@ -141,6 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="6dp"
         android:layout_marginBottom="30dp"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nsv"
@@ -148,21 +149,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDownload"
-            android:layout_width="wrap_content"
-            app:cornerRadius="50dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="17.5dp"
-            android:layout_weight="0.5"
-            android:text="@string/report_fragment_detail_download_button_label" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSeeEmployers"
-            android:layout_width="wrap_content"
-            app:cornerRadius="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17.5dp"
-            android:layout_weight="0.5"
-            android:text="@string/report_fragment_detail_see_others_employers" />
+            android:text="@string/report_fragment_detail_download_button_label"
+            app:cornerRadius="50dp" />
 
     </LinearLayout>
 

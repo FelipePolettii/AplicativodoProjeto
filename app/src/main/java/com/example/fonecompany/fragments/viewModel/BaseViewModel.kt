@@ -10,6 +10,7 @@ open class BaseViewModel : ViewModel() {
     private val _error = MutableStateFlow<Throwable?>(null)
     val error = _error.asLiveData()
     internal fun showError(error: Throwable) {
+    error.printStackTrace()
         _error.value = error
         _error.value = null
     }

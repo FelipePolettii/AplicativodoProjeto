@@ -2,6 +2,7 @@ package com.example.fonecompany.fragments.viewModel
 
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.fonecompany.model.ReportDetailResDTO
 import com.example.fonecompany.model.ReportResDTO
 import com.example.fonecompany.repository.reports.ReportRepository
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fonecompany.databinding.ItemReportBinding
+import com.example.fonecompany.model.ReportDetailResDTO
 import com.example.fonecompany.model.ReportResDTO
 import com.example.fonecompany.utils.ItemCallBack
 import java.util.Date

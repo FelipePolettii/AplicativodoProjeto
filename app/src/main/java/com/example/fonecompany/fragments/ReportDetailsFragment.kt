@@ -9,33 +9,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.example.fonecompany.R
 import com.example.fonecompany.databinding.FragmentReportDetailBinding
 import com.example.fonecompany.fragments.viewModel.ReportDetailsViewModel
-import com.example.fonecompany.model.ReportDetailDTO
 import com.example.fonecompany.utils.FileUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class ReportDetailsFragment : Fragment() {
+    private val args: ReportDetailsFragmentArgs by navArgs()
     private val viewModel: ReportDetailsViewModel by viewModels()
-    private val reportDetailDTO = ReportDetailDTO(
-        name = "Felipe Renó Valle Poletti",
-        salary = 5000.0,
-        inss = "1000",
-        irpf = "1000",
-        transportationValue = 1000.0,
-        deductions = 1000.0,
-        salaryLiquid = 4000.0,
-        office = "Gerente",
-    )
+    private val loading: DialogProgress by lazy { DialogProgress() }
     private var _binding: FragmentReportDetailBinding? = null
     val binding get() = _binding!!
 
@@ -49,76 +37,78 @@ class ReportDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observers()
-        binding.apply {
-            tvName.apply {
-                text = getString(
-                    R.string.report_fragment_detail_name_label,
-                    reportDetailDTO.name,
-                    reportDetailDTO.office
-                )
-                colorText()
-            }
-            tvINSS.apply {
-                text = getString(R.string.report_fragment_detail_inss_label, reportDetailDTO.inss)
-                colorText()
-            }
-            tvIRPF.apply {
-                text = getString(R.string.report_fragment_detail_irpf_label, reportDetailDTO.irpf)
-                colorText()
-            }
-            tvWage.apply {
-                text =
-                    getString(R.string.report_fragment_detail_salary_label, reportDetailDTO.salary)
-                colorText()
-            }
-            tvDeductions.apply {
-                text = getString(
-                    R.string.report_fragment_detail_deduction_label, reportDetailDTO.deductions
-                )
-                colorText()
-            }
-            tvSalaryLiquid.apply {
-                text = getString(
-                    R.string.report_fragment_detail_salary_liquid_label,
-                    reportDetailDTO.salaryLiquid
-                )
-                colorText()
-            }
-            tvTransportationValue.apply {
-                text = getString(
-                    R.string.report_fragment_detail_transportation_value_label,
-                    reportDetailDTO.transportationValue
-                )
-                colorText()
-            }
-            btnDownload.setOnClickListener{
-                showDialogDownload()
-            }
-        }
+        viewModel.fetchreportdetails(args.reportId)
+
     }
 
     private fun observers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
-                launch {
-                    viewModel.pdfResponse.collect {
-                        it?.let { response ->
-                            val uri = FileUtil.saveFile(requireContext(),response.byteStream(),"Folha de Pagamento.pdf")
-                            Intent(Intent.ACTION_VIEW).apply {
-                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                                setDataAndType(uri,"application/pdf")
-                                requireContext().startActivity(Intent.createChooser(this,"selecione um app"))
-                            }
-                        }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) loading.showLoading(parentFragmentManager) else loading.hideLoading()
+        }
+        viewModel.error.observe(viewLifecycleOwner) {
+            it?.let {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.reportresponse.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.apply {
+                    tvName.apply {
+                        text = getString(
+                            R.string.report_fragment_detail_name_label, it.name, it.office
+                        )
+                        colorText()
+                    }
+                    tvINSS.apply {
+                        text = getString(R.string.report_fragment_detail_inss_label, it.inss)
+                        colorText()
+                    }
+                    tvIRPF.apply {
+                        text = getString(R.string.report_fragment_detail_irpf_label, it.irpf)
+                        colorText()
+                    }
+                    tvWage.apply {
+                        text = getString(
+                            R.string.report_fragment_detail_salary_label, it.salary.toFloat()
+                        )
+                        colorText()
+                    }
+                    tvDeductions.apply {
+                        text = getString(
+                            R.string.report_fragment_detail_deduction_label, it.deductions.toFloat()
+                        )
+                        colorText()
+                    }
+                    tvSalaryLiquid.apply {
+                        text = getString(
+                            R.string.report_fragment_detail_salary_liquid_label,
+                            it.salaryLiquid.toFloat()
+                        )
+                        colorText()
+                    }
+                    tvTransportationValue.apply {
+                        text = getString(
+                            R.string.report_fragment_detail_transportation_value_label,
+                            it.transportationValue.toFloat()
+                        )
+                        colorText()
+                    }
+                    btnDownload.setOnClickListener {
+                        showDialogDownload()
                     }
                 }
-                launch {
-                    viewModel.error.collect {
-                        it?.let { error ->
-                            throw error
-                        }
-                    }
+            }
+        }
+        viewModel.pdfResponse.observe(viewLifecycleOwner) {
+            it?.let { response ->
+                val uri = FileUtil.saveFile(
+                    requireContext(), response.byteStream(), "Folha de Pagamento.xlsx"
+                )
+                Intent(Intent.ACTION_VIEW).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    setDataAndType(uri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    requireContext().startActivity(Intent.createChooser(this, "selecione um app"))
                 }
             }
         }
@@ -136,13 +126,14 @@ class ReportDetailsFragment : Fragment() {
             )
         }
     }
-    fun showDialogDownload(){
+
+    fun showDialogDownload() {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle(R.string.report_fragment_detail_dialog_download_title)
-            setPositiveButton(R.string.yes){_,_->
-                viewModel.downloadPDF()
+            setPositiveButton(R.string.yes) { _, _ ->
+                viewModel.downloadPDF(viewModel.reportresponse.value?.userId ?: "", args.reportId)
             }
-            setNegativeButton(R.string.no){_,_->
+            setNegativeButton(R.string.no) { _, _ ->
 
             }
 
